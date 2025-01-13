@@ -21,3 +21,17 @@ The **ECB (Electronic Codebook)** mode encrypts each block of data independently
   - This can expose patterns in the data, making it less secure for highly repetitive inputs like images.
 - Disadvantage:
   - Patterns in the original image may still be visible in the encrypted output due to the deterministic nature of ECB.
+
+### CBC - Cipher Block Chaining
+
+- Each plaintext block is XORed with the previous ciphertext block before encryption.
+- The first block uses an Initialization Vector (IV).
+- Patterns are hidden, even for repetitive plaintext.
+
+**Advantages**:
+- Hides patterns in plaintext.
+- More secure than ECB.
+
+**Disadvantages**:
+- Errors propagate to subsequent blocks during decryption.
+- Requires IV synchronization.
