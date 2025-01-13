@@ -29,7 +29,7 @@ void encrypt_pixel_data_ecb(BMPData *bmpData, const uint8_t *key) {
         memcpy(bmpData->pixelData + i, encrypted_block, block_size);
     }
 
-    printf("Finished encryption.\n");
+    printf("Finished ECB encryption.\n");
 }
 
 int main() {

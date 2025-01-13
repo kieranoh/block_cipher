@@ -16,22 +16,37 @@ sudo apt install openssl libssl-dev
 
 The **ECB (Electronic Codebook)** mode encrypts each block of data independently using the same encryption key.
 
-- Characteristics:
+- **Characteristics:**
   - Identical plaintext blocks produce identical ciphertext blocks.
   - This can expose patterns in the data, making it less secure for highly repetitive inputs like images.
-- Disadvantage:
+- **Disadvantage:**
   - Patterns in the original image may still be visible in the encrypted output due to the deterministic nature of ECB.
 
-### CBC - Cipher Block Chaining
+### 2. CBC - Cipher Block Chaining
 
-- Each plaintext block is XORed with the previous ciphertext block before encryption.
-- The first block uses an Initialization Vector (IV).
-- Patterns are hidden, even for repetitive plaintext.
+The **CBC (Cipher Block Chaining)** mode encrypts each plaintext block by combining it with the ciphertext of the previous block before encryption.
 
-**Advantages**:
-- Hides patterns in plaintext.
-- More secure than ECB.
+- **Characteristics:**
+  - Requires an Initialization Vector (IV) for the first block.
+  - Each ciphertext block depends on all previous plaintext blocks.
+- **Advantage:**
+  - Patterns in plaintext are hidden better compared to ECB.
+  - Suitable for encrypting data with repeating patterns.
+- **Disadvantage:**
+  - Encryption cannot be parallelized due to block dependencies.
+  - A corrupted ciphertext block affects decryption of subsequent blocks.
 
-**Disadvantages**:
-- Errors propagate to subsequent blocks during decryption.
-- Requires IV synchronization.
+
+### 3. CTR - Counter Mode
+
+The **CTR (Counter Mode)** mode encrypts plaintext blocks by combining them with the encryption of a counter value, which is incremented for each block.
+
+- **Characteristics:**
+  - Converts a block cipher into a stream cipher.
+  - The counter ensures each block has a unique input, avoiding repetition in the ciphertext.
+  - Parallelizable, allowing faster encryption and decryption.
+- **Advantage:**
+  - No identical ciphertext blocks for identical plaintext blocks.
+  - Ideal for high-performance and random-access encryption.
+- **Disadvantage:**
+  - The counter must never repeat for the same key, as it compromises security.
