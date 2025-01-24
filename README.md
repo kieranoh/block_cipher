@@ -50,3 +50,43 @@ The **CTR (Counter Mode)** mode encrypts plaintext blocks by combining them with
   - Ideal for high-performance and random-access encryption.
 - **Disadvantage:**
   - The counter must never repeat for the same key, as it compromises security.
+
+### 4. OFB - Output Feedback
+
+The **OFB (Output Feedback)** mode generates a keystream by repeatedly encrypting the IV, which is then XORed with the plaintext blocks to produce ciphertext.
+
+- **Characteristics:**
+  - Converts a block cipher into a stream cipher.
+  - The IV is encrypted to generate the keystream; plaintext is never directly encrypted.
+- **Advantage:**
+  - Errors in ciphertext do not propagate to other blocks.
+  - Ideal for use in noisy channels.
+- **Disadvantage:**
+  - A repeated IV with the same key compromises security.
+
+### 5. CFB - Cipher Feedback
+
+The **CFB (Cipher Feedback)** mode encrypts plaintext by XORing it with the encrypted output of the previous ciphertext block (or the IV for the first block).
+
+- **Characteristics:**
+  - Converts a block cipher into a self-synchronizing stream cipher.
+  - The ciphertext of one block is fed back into the encryption process for the next block.
+- **Advantage:**
+  - Errors in ciphertext are limited to a single block.
+  - Can encrypt data smaller than the block size.
+- **Disadvantage:**
+  - Encryption cannot be parallelized.
+  - Requires careful handling of the IV to avoid vulnerabilities.
+
+### 6. PCBC - Propagating Cipher Block Chaining
+
+The **PCBC (Propagating Cipher Block Chaining)** mode encrypts plaintext blocks by XORing them with both the previous plaintext block and the previous ciphertext block before encryption.
+
+- **Characteristics:**
+  - Enhances error propagation by making each ciphertext block depend on both the previous plaintext and ciphertext blocks.
+  - Requires an Initialization Vector (IV) for the first block.
+- **Advantage:**
+  - Provides additional error propagation, making it useful in scenarios where tampering detection is important.
+- **Disadvantage:**
+  - Errors in ciphertext affect all subsequent blocks during decryption.
+  - Rarely used due to lack of standardization and support.
